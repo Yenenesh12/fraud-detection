@@ -66,7 +66,7 @@ async def predict(transaction: Transaction):
 @app.get("/")
 async def serve_index():
     try:
-        return FileResponse("./templates/form.html")  # Ensure this path is correct
+        return FileResponse("static/form.html")  # Ensure this path is correct
     except Exception as e:
         print(f" Error serving index: {e}")
         raise HTTPException(status_code=500, detail="Error serving the HTML file.")
