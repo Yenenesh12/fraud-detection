@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Fraud Detection System</h2>
+    <form id="fraudForm">
+        <label>How much time has passed since the first transaction? (in seconds)</label>
+        <input type="number" step="any" id="Time" required>
+
+        <label>How unusual is this transaction based on past behavior?</label>
+        <input type="number" step="any" id="V1" required>
+
+        <label>How different is this transaction compared to normal spending?</label>
+        <input type="number" step="any" id="V2" required>
+
+        <label>Does this transaction follow typical spending patterns?</label>
+        <input type="number" step="any" id="V3" required>
+
+        <label>How similar is this transaction to previously flagged fraud cases?</label>
+        <input type="number" step="any" id="V4" required>
+
+        <label>What is the transaction amount? (in currency):</label>
+        <input type="number" step="any" id="Amount" required>
+
+        <button type="submit">Check Transaction</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("fraudForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+        
+            const data = {
+                Time: parseFloat(document.getElementById("Time").value),
+                V1: parseFloat(document.getElementById("V1").value),
+                V2: parseFloat(document.getElementById("V2").value),
+                V3: parseFloat(document.getElementById("V3").value),
+                V4: parseFloat(document.getElementById("V4").value),
+                Amount: parseFloat(document.getElementById("Amount").value)
+            };
+        
+            try {
+                // Send request to backend
+                const response = await fetch("http://127.0.0.1:8000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+        
+                // Check if response is successful
+                if (!response.ok) {
+                    throw new Error("Failed to fetch prediction");
+                }
+        
+                const result = await response.json();
+        
+                // Display the result
+                document.getElementById("result").textContent = "Prediction: " + result.prediction;
+        
+            } catch (error) {
+                // Handle errors (like network issues)
+                document.getElementById("result").textContent = "Error: " + error.message;
+            }
+        });
+        
+    </script>
+
+</body>
+</html>
