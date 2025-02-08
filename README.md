@@ -1,130 +1,130 @@
-Fraud Detection API with FastAPI
-This project implements a fraud detection system using a machine learning model trained on transaction data. The system is exposed as a REST API using FastAPI, allowing users to make predictions on whether a transaction is fraudulent or legitimate.
+Fraud Detection API
+This is a FastAPI-based backend application that provides an API for detecting fraudulent transactions using a trained machine learning model. The project includes a web interface to interact with the API and a pre-trained Random Forest Classifier for fraud detection.
 
+Table of Contents
+Overview
 Features
-FastAPI: A modern, fast (high-performance) web framework for building APIs with Python.
-
-RandomForestClassifier: A machine learning model used for classification tasks.
-
-SMOTE: Synthetic Minority Over-sampling Technique to handle imbalanced datasets.
-
-CORS Middleware: Allows cross-origin requests to the API.
-
-Static File Serving: Serves static files (HTML, CSS, JS) for a simple frontend interface.
-
 Prerequisites
-Python 3.7+
-
-Required Python packages: fastapi, uvicorn, pydantic, pandas, scikit-learn, imblearn, joblib
-
 Installation
-Clone the repository:
-
-bash
-Copy
-git clone https://github.com/yourusername/fraud-detection-api.git
-cd fraud-detection-api
-Install dependencies:
-
-bash
-Copy
-pip install -r requirements.txt
-Run the FastAPI server:
-
-bash
-Copy
-uvicorn main:app --reload
-The API will be available at http://127.0.0.1:8000.
-
 Usage
 API Endpoints
-GET /: Serves the HTML form for submitting transaction data.
+Model Training
+Project Structure
+Contributing
+License
+Overview
+The goal of this project is to provide a simple, scalable, and efficient way to detect fraudulent transactions using machine learning. The backend API processes incoming transaction data, predicts whether it is fraudulent or legitimate, and returns the result. A static HTML form is provided for testing the API.
 
-POST /predict: Accepts transaction data and returns a prediction of whether the transaction is fraudulent or legitimate.
+Features
+Fraud Detection : Predicts whether a transaction is fraudulent or legitimate using a pre-trained Random Forest Classifier.
+CORS Support : Allows cross-origin requests for seamless integration with frontend applications.
+Static File Serving : Serves an HTML form for testing the API.
+Error Handling : Provides meaningful error messages for invalid inputs or server errors.
+Scalable Model : Trained on normalized and balanced data using SMOTE for better performance.
+Prerequisites
+Before running the application, ensure you have the following installed:
 
-Example Request
-To make a prediction, send a POST request to /predict with the following JSON body:
+Python 3.8 or higher
+pip (Python package manager)
+uvicorn (ASGI server for running FastAPI)
+Required Python libraries (see requirements.txt)
+
+Installation
+Step 1: Clone the Repository
+
+git clone https://github.com/yenenesh12/fraud-detection-api.git
+cd fraud-detection-api
+
+Step 2: Install Dependencies
+Install the required Python libraries using pip:
+
+pip install -r requirements.txt
+
+Step 3: Prepare the Dataset
+Place your dataset (new.csv) in the root directory of the project. Ensure the dataset contains the following columns:
+
+V1, V2, V3, V4: Features used for prediction.
+Class: Target variable (0 for legitimate, 1 for fraudulent).
+
+Step 4: Train the Model (Optional)
+If you want to retrain the model, run the following command:
+python train.py
+
+This will generate a new fraud_detection_model.joblib file.
+
+Usage
+Running the Application
+Start the FastAPI application using Uvicorn:
+
+python -m uvicorn main:app --reload
+
+The API will be available at http://127.0.0.1:8000.
+
+Accessing the Web Interface
+Open your browser and navigate to http://127.0.0.1:8000. You will see a form where you can input transaction details and get predictions.
+
+API Endpoints
+1. GET /
+Description : Serves the static HTML form for testing the API.
+Response : HTML file (form.html).
+2. POST /predict
+Description : Accepts transaction data and predicts whether it is fraudulent or legitimate.
+Request Body :
 
 json
-Copy
-{
-  "Time": 0.0,
-  "V1": -1.359807,
-  "V2": -0.072781,
-  "V3": 2.536347,
-  "V4": 1.378155,
-  "Amount": 149.62
+{  
+  "Time": float,  
+  "V1": float,  
+  "V2": float,  
+  "V3": float,  
+  "V4": float,  
+  "Amount": float  
 }
-Example Response
+
+Response
 json
-Copy
-{
-  "prediction": "legitimate"
+{  
+  "prediction": "fraudulent" or "legitimate"  
 }
-Frontend
-The frontend is a simple HTML form that allows users to input transaction data and get predictions. It is served at the root URL /.
 
 Model Training
-The model is trained using a RandomForestClassifier on a dataset containing transaction data. The dataset is preprocessed by scaling the features and balancing the classes using SMOTE.
+The model is trained using the following steps:
 
-Steps to Train the Model
-Load the dataset:
+Data Preprocessing :
+Normalize features using StandardScaler.
+Balance the dataset using SMOTE to handle class imbalance.
 
-python
-Copy
-df = pd.read_csv("new.csv")
-Select features and target:
+Model Selection :
+Random Forest Classifier with hyperparameters:
+n_estimators=10
+max_depth=10
+random_state=42
+n_jobs=1
 
-python
-Copy
-X = df[['V1', 'V2', 'V3', 'V4']]
-y = df['Class']
-Normalize the features:
-
-python
-Copy
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-Split the data:
-
-python
-Copy
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42, stratify=y)
-Apply SMOTE:
-
-python
-Copy
-smote = SMOTE(random_state=42)
-X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
-Train the model:
-
-python
-Copy
-model = RandomForestClassifier(n_estimators=10, max_depth=10, random_state=42, n_jobs=1)
-model.fit(X_resampled, y_resampled)
-Save the model:
-
-python
-Copy
-joblib.dump(model, "fraud_detection_model.joblib")
-Error Handling
-400 Bad Request: If the input data does not have exactly 4 features (V1, V2, V3, V4).
-
-500 Internal Server Error: If there is an error during prediction or serving the HTML file.
-
-CORS Configuration
-The API is configured to allow cross-origin requests from any origin (*). This can be restricted to specific origins in a production environment.
-
-Running the Application
-To run the application, use the following command:
-
+Saving the Model :
+The trained model is saved as fraud_detection_model.joblib.
+To retrain the model, update the dataset (new.csv) and run the training script:
 bash
-Copy
-uvicorn main:app --reload
-This will start the FastAPI server with hot-reloading enabled.
+python train.py
 
-Conclusion
-This project demonstrates how to build a simple fraud detection system using FastAPI and a machine learning model. The API can be easily extended or integrated into a larger system for real-time fraud detection.
+Project Structure
+1 fraud-detection-api/
+2 ├── main.py                  # FastAPI application
+3 ├── train_model.py           # Script for training the model
+4 ├── fraud_detection_model.joblib  # Pre-trained model
+5 ├── new.csv                  # Dataset used for training
+6 ├── static/
+7 │   └── form.html            # Static HTML form for testing the API
+8 ├── requirements.txt          # List of dependencies
+9 └── README.md                 # Project documentation
 
+Contributing
+Contributions are welcome! To contribute:
+
+1.Fork the repository.
+2.Create a new branch (git checkout -b feature/your-feature).
+3.Commit your changes (git commit -m 'Add some feature').
+4.Push to the branch (git push origin feature/your-feature).
+5.Open a pull request.
 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License
