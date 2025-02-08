@@ -32,3 +32,4 @@ model.fit(X_resampled, y_resampled)
 # Save model
 joblib.dump(model, "fraud_detection_model.joblib")
 print("✅ Model training complete and saved!")
+# python -m uvicorn main:app --reload
