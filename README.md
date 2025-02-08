@@ -32,7 +32,7 @@ Required Python libraries (see requirements.txt)
 Installation
 Step 1: Clone the Repository
 
-git clone https://github.com/yenenesh12/fraud-detection-api.git
+git clone https://github.com/yenenesh12/fraud-detection.git
 cd fraud-detection-api
 
 Step 2: Install Dependencies
