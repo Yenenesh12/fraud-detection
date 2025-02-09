@@ -70,7 +70,8 @@ Serves the HTML form for testing.
 Predicts whether a transaction is fraudulent or legitimate.
 
 Request Body:
-```{
+```
+{
   "Time": float,
   "V1": float,
   "V2": float,
