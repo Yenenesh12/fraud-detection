@@ -47,16 +47,15 @@ Access the API at http://127.0.0.1:8000.
 <big>File Structure</big> 🗂️
 ------------------------------
 
-* api: Main file (main.py)
-* data: CSV file for the model
-* model: Model file in joblib format
-* notebooks: Data exploration files
-* src: Train and predict files
-* static: CSS files
-* templates: HTML files
-* .gitignore
-* README.md
-* requirements.txt
+*fraud-detection/
+*├── main.py     # FastAPI application
+*├── train.py     # Model training script
+*├── fraud_detection_model.joblib # Trained machine learning model
+*├── static/     # Directory for static files (HTML, CSS, JS)
+*│  └── form.html  # HTML form for the web interface
+*├── new.csv      # Dataset for training
+*├── requirements.txt # Project dependencies
+*└── README.md    # This file
 
 <big>API Endpoints</big> 📈
 ---------------------------
@@ -71,12 +70,12 @@ Predicts whether a transaction is fraudulent or legitimate.
 
 Request Body:
 {
-  "Time": float,
-  "V1": float,
-  "V2": float,
-  "V3": float,
-  "V4": float,
-  "Amount": float
+ * "Time": float,
+ * "V1": float,
+ * "V2": float,
+ * "V3": float,
+ * "V4": float,
+ * "Amount": float
 }
 
 
