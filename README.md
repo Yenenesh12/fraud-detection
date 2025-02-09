@@ -47,15 +47,18 @@ Access the API at http://127.0.0.1:8000.
 <big>File Structure</big> 🗂️
 ------------------------------
 
-*fraud-detection
-|├── main.py     # FastAPI application
-|├── train.py     # Model training script
-|├── fraud_detection_model.joblib # Trained machine learning model
-|├── static/     # Directory for static files (HTML, CSS, JS)
-*│  └── form.html  # HTML form for the web interface
-*├── new.csv      # Dataset for training
-*├── requirements.txt # Project dependencies
-*└── README.md    # This file
+fraud-detection/
+├── main.py                      # FastAPI application
+├── src/
+│   ├── train.py                # Model training script
+│   ├── predict.py              # Prediction script
+├── fraud_detection_model.joblib # Trained machine learning model
+├── static/                      # Directory for static files (HTML, CSS, JS)
+│   └── form.html               # HTML form for the web interface
+├── data/
+│   └── new.csv                 # Dataset for training
+├── requirements.txt             # Project dependencies
+└── README.md                    # This file
 
 <big>API Endpoints</big> 📈
 ---------------------------
