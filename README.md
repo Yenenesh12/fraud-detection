@@ -1,17 +1,20 @@
+Here's a refactored version of the README file with a more attractive format and a JSON example:
+
 **Fraud Detection API**
 ==========================
 
-**Deployed Website Link:** [Insert your deployed link here](#)
+**Overview**
+------------
 
-**Table of Contents**
------------------
+This is a simple API for detecting fraudulent transactions. It uses a machine learning model to predict whether a transaction is legitimate or fraudulent based on several features.
 
-1. [How to Run This Project](#how-to-run-this-project)
-2. [File Structure](#file-structure)
-3. [API Endpoints](#api-endpoints)
+**Deployed Website**
+--------------------
 
-**How to Run This Project**
----------------------------
+You can access the deployed website at: https://fraud-detection-3-77t1.onrender.com
+
+**Getting Started**
+-------------------
 
 ### Step 1: Clone the Repository
 
@@ -28,8 +31,8 @@ pip install -r requirements.txt
 
 Place your dataset (new.csv) in the project root directory. Ensure it contains:
 
-* Time, V1, V2, V3, V4, Amount: Features for prediction.
-* Class: 0 for legitimate, 1 for fraudulent.
+* Time, V1, V2, V3, V4, Amount: Features for prediction
+* Class: 0 for legitimate, 1 for fraudulent
 
 ### Step 4: Train the Model (Optional)
 
@@ -41,22 +44,30 @@ python train.py
 python -m uvicorn main:app --reload
 
 
-Access the API at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+Access the API at http://127.0.0.1:8000.
 
 **File Structure**
------------------
+------------------
 
-fraud-detection
-├── api           # Main file (main.py)
-├── data          # CSV file for the model
-├── model         # Model file in joblib format
-├── notebooks     # Data exploration files
-├── src           # Train and predict files
-├── static        # CSS files
-├── templates     # HTML files
-├── .gitignore    
-├── README.md     
-├── requirements.txt  
+.
+api
+main.py
+data
+new.csv
+model
+model.joblib
+notebooks
+data_exploration.ipynb
+src
+train.py
+predict.py
+static
+style.css
+templates
+index.html
+.gitignore
+README.md
+requirements.txt
 
 
 **API Endpoints**
@@ -73,12 +84,12 @@ Predicts whether a transaction is fraudulent or legitimate.
 **Request Body**
 
 {
-  "Time": float,
-  "V1": float,
-  "V2": float,
-  "V3": float,
-  "V4": float,
-  "Amount": float
+  "Time": 10.5,
+  "V1": 0.5,
+  "V2": 0.2,
+  "V3": 0.1,
+  "V4": 0.3,
+  "Amount": 100.0
 }
 
 
@@ -91,16 +102,12 @@ Predicts whether a transaction is fraudulent or legitimate.
 
 **Example Use Case**
 
-To use the API, send a POST request to [http://127.0.0.1:8000/predict](http://127.0.0.1:8000/predict) with the following JSON body:
+You can use the API to predict whether a transaction is fraudulent or legitimate by sending a POST request to the /predict endpoint with the transaction data in the request body.
 
-{
-  "Time": 10.0,
-  "V1": 0.5,
-  "V2": 0.2,
-  "V3": 0.1,
-  "V4": 0.3,
-  "Amount": 100.0
-}
+curl -X POST \
+  http://127.0.0.1:8000/predict \
+  -H 'Content-Type: application/json' \
+  -d '{"Time": 10.5, "V1": 0.5, "V2": 0.2, "V3": 0.1, "V4": 0.3, "Amount": 100.0}'
 
 
-The API will respond with a JSON object indicating whether the transaction is fraudulent or legitimate.
+This should return a response with the predicted outcome, either "fraudulent" or "legitimate".
