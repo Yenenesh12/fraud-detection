@@ -1,113 +1,82 @@
-Here's a refactored version of the README file with a more attractive format and a JSON example:
+---
 
-**Fraud Detection API**
-==========================
+# 🚨 Fraud Detection API  
 
-**Overview**
-------------
+## 📊 Overview  
+This is a simple API for detecting fraudulent transactions. It uses a machine learning model to predict whether a transaction is legitimate or fraudulent based on several features.  
 
-This is a simple API for detecting fraudulent transactions. It uses a machine learning model to predict whether a transaction is legitimate or fraudulent based on several features.
+---
 
-**Deployed Website**
---------------------
+## 🌐 Deployed Website  
+🔗 Access the deployed website: [Fraud Detection API](https://fraud-detection-3-77t1.onrender.com)  
 
-You can access the deployed website at: https://fraud-detection-3-77t1.onrender.com
+---
 
-**Getting Started**
--------------------
+## 💻 How to Run This Project  
 
-### Step 1: Clone the Repository
-
+### 📁 Step 1: Clone the Repository  
 git clone https://github.com/yenenesh12/fraud-detection.git
 cd fraud-detection
 
-
-### Step 2: Install Dependencies
-
+### 📦 Step 2: Install Dependencies  
 pip install -r requirements.txt
 
+### 📊 Step 3: Prepare the Dataset  
+Place your dataset (new.csv) in the project root directory. Ensure it contains:  
 
-### Step 3: Prepare the Dataset
+| Feature  | Description |
+|----------|------------|
+| Time   | Transaction time |
+| V1, V2, V3, V4 | Anonymized transaction features |
+| Amount | Transaction amount |
+| Class  | 0 for legitimate, 1 for fraudulent |
 
-Place your dataset (new.csv) in the project root directory. Ensure it contains:
-
-* Time, V1, V2, V3, V4, Amount: Features for prediction
-* Class: 0 for legitimate, 1 for fraudulent
-
-### Step 4: Train the Model (Optional)
-
+### 🤖 Step 4: Train the Model *(Optional)*  
 python train.py
 
-
-### Step 5: Run the Application
-
+### 🚀 Step 5: Run the Application  
 python -m uvicorn main:app --reload
+🔹 Access the API: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
 
+---
 
-Access the API at http://127.0.0.1:8000.
+## 🗂 File Structure  
+fraud-detection/
+│── api/             # Main API file (main.py)
+│── data/            # CSV dataset
+│── model/           # Trained model file (.joblib)
+│── notebooks/       # Data exploration notebooks
+│── src/             # Training & prediction scripts
+│── static/          # CSS files
+│── templates/       # HTML files
+│── .gitignore
+│── README.md
+│── requirements.txt
 
-**File Structure**
-------------------
+---
 
-.
-api
-main.py
-data
-new.csv
-model
-model.joblib
-notebooks
-data_exploration.ipynb
-src
-train.py
-predict.py
-static
-style.css
-templates
-index.html
-.gitignore
-README.md
-requirements.txt
+## 📈 API Endpoints  
 
+### 📊 GET /  
+Serves the HTML form for testing.  
 
-**API Endpoints**
------------------
+### 🤔 POST /predict  
+Predicts whether a transaction is fraudulent or legitimate.  
 
-### GET /
-
-Serves the HTML form for testing.
-
-### POST /predict
-
-Predicts whether a transaction is fraudulent or legitimate.
-
-**Request Body**
-
+#### 📩 Request Body (JSON Format)  
 {
-  "Time": 10.5,
-  "V1": 0.5,
-  "V2": 0.2,
-  "V3": 0.1,
-  "V4": 0.3,
-  "Amount": 100.0
+  "Time": 12345.67,
+  "V1": -1.23,
+  "V2": 2.34,
+  "V3": -0.56,
+  "V4": 1.89,
+  "Amount": 100.50
 }
 
-
-**Response**
-
+#### 📤 Response (JSON Format)  
 {
   "prediction": "fraudulent" or "legitimate"
 }
 
+---
 
-**Example Use Case**
-
-You can use the API to predict whether a transaction is fraudulent or legitimate by sending a POST request to the /predict endpoint with the transaction data in the request body.
-
-curl -X POST \
-  http://127.0.0.1:8000/predict \
-  -H 'Content-Type: application/json' \
-  -d '{"Time": 10.5, "V1": 0.5, "V2": 0.2, "V3": 0.1, "V4": 0.3, "Amount": 100.0}'
-
-
-This should return a response with the predicted outcome, either "fraudulent" or "legitimate".
