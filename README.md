@@ -46,7 +46,7 @@ Access the API at http://127.0.0.1:8000.
 
 <big>File Structure</big> 🗂️
 ------------------------------
-
+```
 fraud-detection/
 ├── main.py                      # FastAPI application
 ├── src/
@@ -59,7 +59,7 @@ fraud-detection/
 │   └── new.csv                 # Dataset for training
 ├── requirements.txt             # Project dependencies
 └── README.md                    # This file
-
+```
 <big>API Endpoints</big> 📈
 ---------------------------
 
